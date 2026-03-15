@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { TalkTheme } from "@/lib/types";
 
 type Props = {
@@ -10,6 +11,75 @@ function formatDate(iso: string): string {
   return `${d.getFullYear()}/${(d.getMonth() + 1)
     .toString()
     .padStart(2, "0")}/${d.getDate().toString().padStart(2, "0")}`;
+}
+
+function PhotoCarousel({ photos }: { photos: string[] }) {
+  const [current, setCurrent] = useState(0);
+
+  if (photos.length === 1) {
+    return (
+      <div className="mt-3 rounded-xl overflow-hidden">
+        <img
+          src={photos[0]}
+          alt="添付写真"
+          className="w-full max-h-64 object-cover rounded-xl"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-3 relative">
+      <div className="overflow-hidden rounded-xl">
+        <div
+          className="flex transition-transform duration-300 ease-out"
+          style={{ transform: `translateX(-${current * 100}%)` }}
+        >
+          {photos.map((photo, i) => (
+            <img
+              key={i}
+              src={photo}
+              alt={`添付写真 ${i + 1}`}
+              className="w-full max-h-64 object-cover flex-shrink-0"
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* ナビゲーションボタン */}
+      {current > 0 && (
+        <button
+          onClick={() => setCurrent(current - 1)}
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm text-gray-600 flex items-center justify-center shadow-md hover:bg-white transition-all duration-200 cursor-pointer"
+        >
+          ‹
+        </button>
+      )}
+      {current < photos.length - 1 && (
+        <button
+          onClick={() => setCurrent(current + 1)}
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm text-gray-600 flex items-center justify-center shadow-md hover:bg-white transition-all duration-200 cursor-pointer"
+        >
+          ›
+        </button>
+      )}
+
+      {/* ドットインジケーター */}
+      <div className="flex justify-center gap-1.5 mt-2">
+        {photos.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`w-2 h-2 rounded-full transition-all duration-200 cursor-pointer ${
+              i === current
+                ? "bg-purple-400 scale-125"
+                : "bg-gray-300 hover:bg-gray-400"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default function ThemeCard({ theme, showDoneDate = false }: Props) {
@@ -26,10 +96,26 @@ export default function ThemeCard({ theme, showDoneDate = false }: Props) {
     <div
       className={`w-full p-5 rounded-2xl border-2 ${cardBg} shadow-sm transition-all duration-200 hover:shadow-md`}
     >
-      <p className="text-gray-700 text-lg leading-relaxed mb-4 font-medium">
+      <p className="text-gray-700 text-lg leading-relaxed mb-3 font-medium">
         {theme.text}
       </p>
-      <div className="flex flex-wrap items-center gap-3 text-sm">
+
+      {/* メモ */}
+      {theme.memo && (
+        <div className="mb-3 p-3 rounded-xl bg-white/60 border border-gray-100">
+          <p className="text-xs font-bold text-purple-400 mb-1">📝 メモ</p>
+          <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">
+            {theme.memo}
+          </p>
+        </div>
+      )}
+
+      {/* 写真カルーセル */}
+      {theme.photos && theme.photos.length > 0 && (
+        <PhotoCarousel photos={theme.photos} />
+      )}
+
+      <div className="flex flex-wrap items-center gap-3 text-sm mt-3">
         <span
           className={`px-3 py-1 rounded-full ${badgeBg} font-bold text-xs`}
         >

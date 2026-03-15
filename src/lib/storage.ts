@@ -8,4 +8,5 @@ export {
   markAsDone,
   getPendingThemes,
   getDoneThemes,
+  compressImage,
 } from "./storage.local";

@@ -7,4 +7,6 @@ export type TalkTheme = {
   created_at: string;
   status: "pending" | "done";
   done_at?: string;
+  memo?: string;
+  photos?: string[]; // base64エンコード画像の配列（フェーズ1）
 };
