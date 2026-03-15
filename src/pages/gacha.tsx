@@ -5,10 +5,10 @@ export default function GachaPage() {
     <div className="flex flex-col items-center gap-8 min-h-[70vh] justify-center">
       {/* ヘッダー */}
       <div className="text-center">
-        <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-red-400 mb-2">
+        <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-500 mb-2">
           🎰 ガチャ
         </h2>
-        <p className="text-white/40 text-sm">
+        <p className="text-purple-400/70 text-sm font-medium">
           ボタンを押してテーマを引き当てよう！
         </p>
       </div>

@@ -19,13 +19,23 @@ export default function InputPage() {
 
   if (!author) return null;
 
+  const isKouki = author === "こーき";
+
   return (
     <div className="flex flex-col gap-8">
       {/* ヘッダー */}
       <div>
-        <h2 className="text-2xl font-bold text-white mb-1">✏️ テーマ入力</h2>
-        <p className="text-white/40 text-sm">
-          <span className="text-white/70 font-medium">{author}</span>
+        <h2 className="text-2xl font-black text-gray-700 mb-1">
+          ✏️ テーマ入力
+        </h2>
+        <p className="text-gray-400 text-sm font-medium">
+          <span
+            className={`font-bold ${
+              isKouki ? "text-sky-500" : "text-pink-500"
+            }`}
+          >
+            {author}
+          </span>
           としてメモ中
         </p>
       </div>
@@ -36,7 +46,7 @@ export default function InputPage() {
       {/* ナビゲーション */}
       <Link
         href="/gacha"
-        className="text-center text-purple-400/70 hover:text-purple-400 text-sm transition-colors duration-200"
+        className="text-center text-purple-400 hover:text-purple-600 text-sm font-bold transition-colors duration-200"
       >
         🎰 ガチャ画面へ →
       </Link>

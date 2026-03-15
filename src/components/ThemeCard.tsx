@@ -14,26 +14,30 @@ function formatDate(iso: string): string {
 
 export default function ThemeCard({ theme, showDoneDate = false }: Props) {
   const isKouki = theme.author === "こーき";
-  const borderColor = isKouki ? "border-blue-500/30" : "border-pink-500/30";
+  const cardBg = isKouki
+    ? "bg-sky-50 border-sky-200"
+    : "bg-pink-50 border-pink-200";
   const badgeBg = isKouki
-    ? "bg-blue-500/20 text-blue-300"
-    : "bg-pink-500/20 text-pink-300";
+    ? "bg-sky-200 text-sky-700"
+    : "bg-pink-200 text-pink-700";
   const emoji = isKouki ? "🧑" : "👩";
 
   return (
     <div
-      className={`w-full p-5 rounded-2xl bg-white/5 border ${borderColor} backdrop-blur-sm`}
+      className={`w-full p-5 rounded-2xl border-2 ${cardBg} shadow-sm transition-all duration-200 hover:shadow-md`}
     >
-      <p className="text-white text-lg leading-relaxed mb-4">{theme.text}</p>
+      <p className="text-gray-700 text-lg leading-relaxed mb-4 font-medium">
+        {theme.text}
+      </p>
       <div className="flex flex-wrap items-center gap-3 text-sm">
-        <span className={`px-3 py-1 rounded-full ${badgeBg} font-medium`}>
+        <span
+          className={`px-3 py-1 rounded-full ${badgeBg} font-bold text-xs`}
+        >
           {emoji} {theme.author}のテーマ
         </span>
-        <span className="text-white/40">
-          📅 {formatDate(theme.created_at)}
-        </span>
+        <span className="text-gray-400">📅 {formatDate(theme.created_at)}</span>
         {showDoneDate && theme.done_at && (
-          <span className="text-white/40">
+          <span className="text-gray-400">
             ✅ {formatDate(theme.done_at)}
           </span>
         )}

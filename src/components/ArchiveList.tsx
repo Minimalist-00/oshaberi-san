@@ -16,8 +16,8 @@ export default function ArchiveList() {
 
   if (loading) {
     return (
-      <div className="text-white/40 text-center py-12 animate-pulse">
-        読み込み中...
+      <div className="text-purple-300 text-center py-12 animate-pulse font-bold">
+        読み込み中... 🔄
       </div>
     );
   }
@@ -26,12 +26,12 @@ export default function ArchiveList() {
     return (
       <div className="flex flex-col items-center gap-4 text-center py-12">
         <div className="text-5xl">📝</div>
-        <p className="text-white/50 text-lg">
+        <p className="text-gray-400 text-lg font-medium">
           まだ話したテーマはありません
         </p>
         <a
           href="/gacha"
-          className="px-6 py-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-sm hover:scale-105 active:scale-95 transition-transform duration-200"
+          className="px-6 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 text-white font-bold text-sm hover:scale-105 active:scale-95 transition-transform duration-200 shadow-lg shadow-orange-300/30"
         >
           ガチャを引く →
         </a>
@@ -41,8 +41,8 @@ export default function ArchiveList() {
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      <p className="text-white/40 text-sm text-center">
-        話し済み {themes.length} 件
+      <p className="text-purple-400 text-sm text-center font-bold">
+        🗣️ 話し済み {themes.length} 件
       </p>
       {themes.map((theme) => (
         <ThemeCard key={theme.id} theme={theme} showDoneDate />
