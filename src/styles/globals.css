@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0c0a14;
+  --foreground: #ededed;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
+  background-image: radial-gradient(
+      ellipse at 20% 50%,
+      rgba(120, 80, 255, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      rgba(255, 80, 150, 0.06) 0%,
+      transparent 50%
+    );
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Noto Sans JP", "Inter", system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* ガチャ ブルブル アニメーション */
+@keyframes gacha-shake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  10% {
+    transform: translateX(-8px) rotate(-5deg);
+  }
+  20% {
+    transform: translateX(8px) rotate(5deg);
+  }
+  30% {
+    transform: translateX(-6px) rotate(-3deg);
+  }
+  40% {
+    transform: translateX(6px) rotate(3deg);
+  }
+  50% {
+    transform: translateX(-4px) rotate(-2deg);
+  }
+  60% {
+    transform: translateX(4px) rotate(2deg);
+  }
+  70% {
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  80% {
+    transform: translateX(2px) rotate(1deg);
+  }
+  90% {
+    transform: translateX(-1px) rotate(0deg);
+  }
+}
+
+.gacha-shake {
+  animation: gacha-shake 0.6s ease-in-out infinite;
+}
+
+/* ガチャ結果 フェードイン */
+@keyframes gacha-fadein {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  50% {
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.gacha-fadein {
+  animation: gacha-fadein 0.5s ease-out both;
 }
