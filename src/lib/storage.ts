@@ -9,4 +9,4 @@ export {
   getPendingThemes,
   getDoneThemes,
   compressImage,
-} from "./storage.local";
+} from "./storage.supabase";
