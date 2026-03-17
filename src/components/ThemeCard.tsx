@@ -19,11 +19,11 @@ function PhotoCarousel({ photos }: { photos: string[] }) {
 
   if (photos.length === 1) {
     return (
-      <div className="mt-3 rounded-xl overflow-hidden">
+      <div className="mt-3 rounded-xl overflow-hidden bg-black/5 flex justify-center">
         <img
           src={photos[0]}
           alt="添付写真"
-          className="w-full max-h-64 object-cover rounded-xl"
+          className="w-full h-auto max-h-[70vh] object-contain rounded-xl"
         />
       </div>
     );
@@ -31,9 +31,9 @@ function PhotoCarousel({ photos }: { photos: string[] }) {
 
   return (
     <div className="mt-3 relative">
-      <div className="overflow-hidden rounded-xl">
+      <div className="overflow-hidden rounded-xl bg-black/5">
         <div
-          className="flex transition-transform duration-300 ease-out"
+          className="flex transition-transform duration-300 ease-out items-center"
           style={{ transform: `translateX(-${current * 100}%)` }}
         >
           {photos.map((photo, i) => (
@@ -41,7 +41,7 @@ function PhotoCarousel({ photos }: { photos: string[] }) {
               key={i}
               src={photo}
               alt={`添付写真 ${i + 1}`}
-              className="w-full max-h-64 object-cover flex-shrink-0"
+              className="w-full h-auto max-h-[70vh] object-contain flex-shrink-0"
             />
           ))}
         </div>
