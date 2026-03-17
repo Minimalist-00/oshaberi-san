@@ -26,7 +26,7 @@ export default function InputPage() {
       {/* ヘッダー */}
       <div>
         <h2 className="text-2xl font-black text-gray-700 mb-1">
-          ✏️ テーマ入力
+          ✏️ テーマをかく
         </h2>
       </div>
 

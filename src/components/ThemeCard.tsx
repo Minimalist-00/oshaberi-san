@@ -72,8 +72,8 @@ function PhotoCarousel({ photos }: { photos: string[] }) {
             key={i}
             onClick={() => setCurrent(i)}
             className={`w-2 h-2 rounded-full transition-all duration-200 cursor-pointer ${i === current
-                ? "bg-purple-400 scale-125"
-                : "bg-gray-300 hover:bg-gray-400"
+              ? "bg-purple-400 scale-125"
+              : "bg-gray-300 hover:bg-gray-400"
               }`}
           />
         ))}
@@ -137,18 +137,24 @@ export default function ThemeCard({ theme, showDoneDate = false, hideMemoInitial
         <PhotoCarousel photos={theme.photos} />
       )}
 
-      <div className="flex flex-wrap items-center gap-3 text-sm mt-3">
-        <span
-          className={`px-3 py-1 rounded-full ${badgeBg} font-bold text-xs`}
-        >
-          {emoji} {theme.author}のテーマ
-        </span>
-        <span className="text-gray-400">📅 {formatDate(theme.created_at)}</span>
-        {showDoneDate && theme.done_at && (
-          <span className="text-gray-400">
-            ✅ {formatDate(theme.done_at)}
+      <div className="flex flex-col gap-2 text-sm mt-4">
+        <div className="flex items-center">
+          <span
+            className={`px-3 py-1 rounded-full ${badgeBg} font-bold text-[10px]`}
+          >
+            {emoji} {theme.author}のテーマ
           </span>
-        )}
+        </div>
+        <div className="flex flex-col gap-1.5 ml-1">
+          <span className="text-gray-400 flex items-center gap-1.5 text-xs">
+            <span className="opacity-70">📅</span> {formatDate(theme.created_at)}
+          </span>
+          {showDoneDate && theme.done_at && (
+            <span className="text-gray-400 flex items-center gap-1.5 text-xs">
+              <span className="opacity-70">✅</span> {formatDate(theme.done_at)}
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );

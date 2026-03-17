@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
 import { addTheme, compressImage } from "@/lib/storage";
 import { Author } from "@/lib/types";
+import { useRef, useState } from "react";
 
 type Props = {
   author: Author;
@@ -73,8 +73,8 @@ export default function ThemeInputForm({ author }: Props) {
             type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="話したいテーマ（例：最近ハマってること）"
-            className="w-full p-4 rounded-2xl bg-white border-2 border-purple-100 text-gray-700 placeholder-purple-200 text-base focus:outline-none focus:ring-3 focus:ring-purple-200/50 focus:border-purple-300 transition-all duration-200 shadow-sm"
+            placeholder="ここにテーマをかくよ"
+            className="w-full p-4 rounded-2xl bg-white border-2 border-purple-200 text-gray-700 placeholder-purple-300 text-base focus:outline-none focus:ring-3 focus:ring-purple-300/50 focus:border-purple-400 transition-all duration-200 shadow-sm"
           />
         </div>
 
@@ -86,7 +86,7 @@ export default function ThemeInputForm({ author }: Props) {
           <textarea
             value={memo}
             onChange={(e) => setMemo(e.target.value)}
-            placeholder="話したいことをメモしよう... 💭"
+            placeholder="ここにカンペをかくのだ"
             className="w-full min-h-[140px] p-4 rounded-2xl bg-white border-2 border-purple-200 text-gray-700 placeholder-purple-300 text-base resize-none focus:outline-none focus:ring-3 focus:ring-purple-300/50 focus:border-purple-400 transition-all duration-200 shadow-sm"
           />
         </div>
@@ -138,10 +138,6 @@ export default function ThemeInputForm({ author }: Props) {
             onChange={handlePhotoAdd}
             className="hidden"
           />
-
-          <p className="text-xs text-gray-400 mt-2">
-            ⚠️ 画像は圧縮して保存されます（容量節約のため）
-          </p>
         </div>
 
         {/* 送信ボタン */}
@@ -156,11 +152,10 @@ export default function ThemeInputForm({ author }: Props) {
 
       {/* 成功トースト */}
       <div
-        className={`fixed bottom-24 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 text-white font-bold shadow-lg shadow-emerald-300/30 transition-all duration-300 z-50 ${
-          toast
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-4 pointer-events-none"
-        }`}
+        className={`fixed bottom-24 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 text-white font-bold shadow-lg shadow-emerald-300/30 transition-all duration-300 z-50 ${toast
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-4 pointer-events-none"
+          }`}
       >
         ✅ メモしました！
       </div>

@@ -9,7 +9,7 @@ export default function GachaPage() {
           🎰 ガチャ
         </h2>
         <p className="text-purple-400/70 text-sm font-medium">
-          ボタンを押してテーマを引き当てよう！
+          なにが出るかな！わくわく
         </p>
       </div>
 

@@ -9,7 +9,7 @@ export default function ArchivePage() {
           📚 過去のトーク
         </h2>
         <p className="text-gray-400 text-sm font-medium">
-          話し済みテーマの振り返り
+          過去にどんなことを話したか見てみよう
         </p>
       </div>
 

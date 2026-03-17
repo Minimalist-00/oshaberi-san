@@ -84,7 +84,7 @@ export default function ArchiveList() {
   return (
     <div className="flex flex-col w-full">
       <p className="text-purple-400 text-sm text-center font-bold mb-2">
-        🗣️ 話し済み {themes.length} 件
+        🗣️ これまで {themes.length} 件話したよ！
       </p>
 
       <div className="flex flex-col">
