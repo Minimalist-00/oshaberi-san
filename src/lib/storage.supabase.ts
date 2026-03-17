@@ -88,6 +88,21 @@ export async function markAsDone(id: string): Promise<void> {
   }
 }
 
+export async function restoreTheme(id: string): Promise<void> {
+  const { error } = await supabase
+    .from("talk_themes")
+    .update({ 
+      status: "pending",
+      done_at: null
+    })
+    .eq("id", id);
+
+  if (error) {
+    console.error("Error restoring theme:", error);
+    throw error;
+  }
+}
+
 export async function getPendingThemes(): Promise<TalkTheme[]> {
   const { data, error } = await supabase
     .from("talk_themes")

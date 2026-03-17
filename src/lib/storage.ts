@@ -6,6 +6,7 @@ export {
   getThemes,
   addTheme,
   markAsDone,
+  restoreTheme,
   getPendingThemes,
   getDoneThemes,
   compressImage,

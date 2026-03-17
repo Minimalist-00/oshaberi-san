@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { getDoneThemes } from "@/lib/storage";
+import { getDoneThemes, restoreTheme } from "@/lib/storage";
 import { TalkTheme } from "@/lib/types";
+import { useEffect, useState } from "react";
 import ThemeCard from "./ThemeCard";
 
 function formatDate(iso: string): string {
@@ -15,12 +15,25 @@ export default function ArchiveList() {
   const [loading, setLoading] = useState(true);
   const [selectedTheme, setSelectedTheme] = useState<TalkTheme | null>(null);
 
-  useEffect(() => {
+  const loadThemes = () => {
+    setLoading(true);
     getDoneThemes().then((data) => {
       setThemes(data);
       setLoading(false);
     });
+  };
+
+  useEffect(() => {
+    loadThemes();
   }, []);
+
+  const handleRestore = async (id: string) => {
+    if (confirm("このテーマをガチャに戻していい？🥺")) {
+      await restoreTheme(id);
+      setSelectedTheme(null);
+      loadThemes();
+    }
+  };
 
   if (loading) {
     return (
@@ -50,13 +63,20 @@ export default function ArchiveList() {
   if (selectedTheme) {
     return (
       <div className="flex flex-col gap-6 w-full animate-in fade-in slide-in-from-bottom-4 duration-300">
-        <button 
+        <button
           onClick={() => setSelectedTheme(null)}
           className="self-start px-4 py-2 rounded-xl bg-gray-100 text-gray-600 font-bold hover:bg-gray-200 transition-colors text-sm flex items-center gap-2 cursor-pointer"
         >
           <span>←</span> 戻る
         </button>
-        <ThemeCard theme={selectedTheme} showDoneDate />
+        <ThemeCard theme={selectedTheme} showDoneDate hideMemoInitial={true} />
+
+        <button
+          onClick={() => handleRestore(selectedTheme.id)}
+          className="w-full py-3 mt-4 rounded-xl bg-gradient-to-r from-teal-400 to-emerald-400 text-white font-bold shadow-md hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 cursor-pointer flex items-center justify-center gap-2"
+        >
+          <span>♻️</span> もう一度ガチャに入れる
+        </button>
       </div>
     );
   }
@@ -66,7 +86,7 @@ export default function ArchiveList() {
       <p className="text-purple-400 text-sm text-center font-bold mb-2">
         🗣️ 話し済み {themes.length} 件
       </p>
-      
+
       <div className="flex flex-col">
         {themes.map((theme) => {
           const isKouki = theme.author === "こーき";
@@ -89,7 +109,7 @@ export default function ArchiveList() {
                   <span>{formatDate(theme.created_at)}</span>
                 </div>
               </div>
-              
+
               {theme.photos && theme.photos.length > 0 && (
                 <div className="flex-shrink-0 ml-2">
                   <img
