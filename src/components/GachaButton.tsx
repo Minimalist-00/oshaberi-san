@@ -1,6 +1,6 @@
-import { useState, useCallback } from "react";
-import { TalkTheme } from "@/lib/types";
 import { getPendingThemes, markAsDone } from "@/lib/storage";
+import { TalkTheme } from "@/lib/types";
+import { useCallback, useState } from "react";
 import ThemeCard from "./ThemeCard";
 
 type GachaState = "idle" | "spinning" | "result";
@@ -61,13 +61,13 @@ export default function GachaButton() {
       <div className="flex flex-col items-center gap-6 text-center">
         <div className="text-6xl mb-2">📭</div>
         <p className="text-gray-400 text-lg font-medium">
-          テーマが登録されていません
+          テーマないやないかい
         </p>
         <a
           href="/input"
           className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 text-white font-bold hover:scale-105 active:scale-95 transition-transform duration-200 shadow-lg shadow-purple-300/30"
         >
-          テーマを入力する →
+          テーマを書きにいく
         </a>
       </div>
     );
