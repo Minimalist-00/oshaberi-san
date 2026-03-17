@@ -93,12 +93,33 @@ export default function ThemeCard({ theme, showDoneDate = false, hideMemoInitial
     : "bg-pink-200 text-pink-700";
   const emoji = isKouki ? "🐶" : "🐰";
 
+  const renderTextWithLinks = (text: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.split(urlRegex).map((part, i) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a
+            key={i}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline break-all"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <div
       className={`w-full p-5 rounded-2xl border-2 ${cardBg} shadow-sm transition-all duration-200 hover:shadow-md`}
     >
       <p className="text-gray-700 text-lg leading-relaxed mb-3 font-medium">
-        {theme.text}
+        {renderTextWithLinks(theme.text)}
       </p>
 
       {/* メモ */}
@@ -125,7 +146,7 @@ export default function ThemeCard({ theme, showDoneDate = false, hideMemoInitial
                 )}
               </div>
               <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">
-                {theme.memo}
+                {renderTextWithLinks(theme.memo)}
               </p>
             </div>
           )}
