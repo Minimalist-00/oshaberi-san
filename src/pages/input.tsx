@@ -34,12 +34,20 @@ export default function InputPage() {
       <ThemeInputForm author={author} />
 
       {/* ナビゲーション */}
-      <Link
-        href="/gacha"
-        className="text-center text-purple-400 hover:text-purple-600 text-sm font-bold transition-colors duration-200"
-      >
-        🎰 ガチャ画面へ →
-      </Link>
+      <div className="flex flex-col gap-4 items-center">
+        <Link
+          href="/gacha"
+          className="text-center text-purple-400 hover:text-purple-600 text-sm font-bold transition-colors duration-200"
+        >
+          🎰 ガチャ画面へ →
+        </Link>
+        <Link
+          href="/edit"
+          className="text-center text-gray-300 hover:text-gray-400 text-xs font-medium transition-colors duration-200"
+        >
+          過去にメモしたやつを編集する
+        </Link>
+      </div>
     </div>
   );
 }

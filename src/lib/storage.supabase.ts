@@ -130,3 +130,30 @@ export async function getDoneThemes(): Promise<TalkTheme[]> {
   }
   return data as TalkTheme[];
 }
+
+export async function getPendingThemesByAuthor(author: Author): Promise<TalkTheme[]> {
+  const { data, error } = await supabase
+    .from("talk_themes")
+    .select("*")
+    .eq("status", "pending")
+    .eq("author", author)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching pending themes by author:", error);
+    return [];
+  }
+  return data as TalkTheme[];
+}
+
+export async function updateTheme(id: string, updates: Partial<Pick<TalkTheme, "text" | "memo" | "photos">>): Promise<void> {
+  const { error } = await supabase
+    .from("talk_themes")
+    .update(updates)
+    .eq("id", id);
+
+  if (error) {
+    console.error("Error updating theme:", error);
+    throw error;
+  }
+}

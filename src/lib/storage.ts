@@ -9,5 +9,7 @@ export {
   restoreTheme,
   getPendingThemes,
   getDoneThemes,
+  getPendingThemesByAuthor,
+  updateTheme,
   compressImage,
 } from "./storage.supabase";

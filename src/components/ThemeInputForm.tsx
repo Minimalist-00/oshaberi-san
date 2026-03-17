@@ -1,20 +1,31 @@
-import { addTheme, compressImage } from "@/lib/storage";
-import { Author } from "@/lib/types";
-import { useRef, useState } from "react";
+import { addTheme, compressImage, updateTheme } from "@/lib/storage";
+import { Author, TalkTheme } from "@/lib/types";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   author: Author;
+  initialTheme?: TalkTheme;
+  onCancel?: () => void;
+  onSuccess?: () => void;
 };
 
 const MAX_PHOTOS = 20;
 
-export default function ThemeInputForm({ author }: Props) {
-  const [text, setText] = useState("");
-  const [memo, setMemo] = useState("");
-  const [photos, setPhotos] = useState<string[]>([]);
+export default function ThemeInputForm({ author, initialTheme, onCancel, onSuccess }: Props) {
+  const [text, setText] = useState(initialTheme?.text || "");
+  const [memo, setMemo] = useState(initialTheme?.memo || "");
+  const [photos, setPhotos] = useState<string[]>(initialTheme?.photos || []);
   const [toast, setToast] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (initialTheme) {
+      setText(initialTheme.text);
+      setMemo(initialTheme.memo || "");
+      setPhotos(initialTheme.photos || []);
+    }
+  }, [initialTheme]);
 
   const handlePhotoAdd = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -47,19 +58,41 @@ export default function ThemeInputForm({ author }: Props) {
     if (!text.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
-    await addTheme({
-      text: text.trim(),
-      author,
-      memo: memo.trim() || undefined,
-      photos: photos.length > 0 ? photos : undefined,
-    });
-    setText("");
-    setMemo("");
-    setPhotos([]);
-    setIsSubmitting(false);
-    setToast(true);
-    setTimeout(() => setToast(false), 2000);
+    try {
+      if (initialTheme) {
+        await updateTheme(initialTheme.id, {
+          text: text.trim(),
+          memo: memo.trim() || undefined,
+          photos: photos.length > 0 ? photos : undefined,
+        });
+      } else {
+        await addTheme({
+          text: text.trim(),
+          author,
+          memo: memo.trim() || undefined,
+          photos: photos.length > 0 ? photos : undefined,
+        });
+      }
+
+      if (!initialTheme) {
+        setText("");
+        setMemo("");
+        setPhotos([]);
+      }
+
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+        if (onSuccess) onSuccess();
+      }, 1500);
+    } catch (err) {
+      console.error("保存に失敗しました:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const isEditing = !!initialTheme;
 
   return (
     <div className="relative">
@@ -140,14 +173,26 @@ export default function ThemeInputForm({ author }: Props) {
           />
         </div>
 
-        {/* 送信ボタン */}
-        <button
-          type="submit"
-          disabled={!text.trim() || isSubmitting}
-          className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-400 to-pink-400 text-white text-lg font-black shadow-lg shadow-purple-300/30 hover:shadow-xl hover:shadow-purple-300/40 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer"
-        >
-          {isSubmitting ? "保存中... 🔄" : "💾 メモする！"}
-        </button>
+        {/* ボタン類 */}
+        <div className="flex flex-col gap-3">
+          <button
+            type="submit"
+            disabled={!text.trim() || isSubmitting}
+            className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-400 to-pink-400 text-white text-lg font-black shadow-lg shadow-purple-300/30 hover:shadow-xl hover:shadow-purple-300/40 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer"
+          >
+            {isSubmitting ? "保存中... 🔄" : isEditing ? "更新する！" : "💾 メモする！"}
+          </button>
+
+          {isEditing && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="w-full py-3 rounded-2xl bg-gray-100 text-gray-500 font-bold hover:bg-gray-200 transition-all duration-200 cursor-pointer"
+            >
+              キャンセル
+            </button>
+          )}
+        </div>
       </form>
 
       {/* 成功トースト */}
@@ -157,7 +202,7 @@ export default function ThemeInputForm({ author }: Props) {
           : "opacity-0 translate-y-4 pointer-events-none"
           }`}
       >
-        ✅ メモしました！
+        ✅ {isEditing ? "更新しました！" : "メモしました！"}
       </div>
     </div>
   );
