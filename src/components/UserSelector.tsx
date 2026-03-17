@@ -5,7 +5,7 @@ export default function UserSelector() {
   const router = useRouter();
 
   const selectUser = (user: Author) => {
-    sessionStorage.setItem("oshaberi-san-user", user);
+    localStorage.setItem("oshaberi-san-user", user);
     router.push("/input");
   };
 

@@ -9,7 +9,7 @@ export default function InputPage() {
   const [author, setAuthor] = useState<Author | null>(null);
 
   useEffect(() => {
-    const stored = sessionStorage.getItem("oshaberi-san-user");
+    const stored = localStorage.getItem("oshaberi-san-user");
     if (!stored) {
       router.push("/");
       return;

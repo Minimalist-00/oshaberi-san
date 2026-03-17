@@ -4,6 +4,7 @@ import { TalkTheme } from "@/lib/types";
 type Props = {
   theme: TalkTheme;
   showDoneDate?: boolean;
+  hideMemoInitial?: boolean;
 };
 
 function formatDate(iso: string): string {
@@ -82,7 +83,8 @@ function PhotoCarousel({ photos }: { photos: string[] }) {
   );
 }
 
-export default function ThemeCard({ theme, showDoneDate = false }: Props) {
+export default function ThemeCard({ theme, showDoneDate = false, hideMemoInitial = false }: Props) {
+  const [isMemoVisible, setIsMemoVisible] = useState(!hideMemoInitial);
   const isKouki = theme.author === "こーき";
   const cardBg = isKouki
     ? "bg-sky-50 border-sky-200"
@@ -103,10 +105,31 @@ export default function ThemeCard({ theme, showDoneDate = false }: Props) {
       {/* メモ */}
       {theme.memo && (
         <div className="mb-3 p-3 rounded-xl bg-white/60 border border-gray-100">
-          <p className="text-xs font-bold text-purple-400 mb-1">📝 メモ</p>
-          <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">
-            {theme.memo}
-          </p>
+          {!isMemoVisible ? (
+            <button
+              onClick={() => setIsMemoVisible(true)}
+              className="w-full py-2 text-sm font-bold text-purple-500 flex items-center justify-center gap-2 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors cursor-pointer"
+            >
+              <span>👀</span> カンペをみる
+            </button>
+          ) : (
+            <div className="relative">
+              <div className="flex justify-between items-center mb-1">
+                <p className="text-xs font-bold text-purple-400">📝 メモ</p>
+                {hideMemoInitial && (
+                  <button
+                    onClick={() => setIsMemoVisible(false)}
+                    className="text-xs text-gray-400 hover:text-gray-600 underline transition-colors cursor-pointer"
+                  >
+                    カンペを隠す
+                  </button>
+                )}
+              </div>
+              <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">
+                {theme.memo}
+              </p>
+            </div>
+          )}
         </div>
       )}
 

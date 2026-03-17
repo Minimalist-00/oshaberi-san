@@ -115,7 +115,7 @@ export default function GachaButton() {
           <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-500 mb-2">
             デデン！🎉
           </div>
-          <ThemeCard theme={drawnTheme} />
+          <ThemeCard theme={drawnTheme} hideMemoInitial />
           <div className="flex gap-4 w-full">
             <button
               onClick={handleNext}
