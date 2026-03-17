@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
 import ThemeInputForm from "@/components/ThemeInputForm";
 import { Author } from "@/lib/types";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function InputPage() {
   const router = useRouter();
@@ -28,16 +28,6 @@ export default function InputPage() {
         <h2 className="text-2xl font-black text-gray-700 mb-1">
           ✏️ テーマ入力
         </h2>
-        <p className="text-gray-400 text-sm font-medium">
-          <span
-            className={`font-bold ${
-              isKouki ? "text-sky-500" : "text-pink-500"
-            }`}
-          >
-            {author}
-          </span>
-          としてメモ中
-        </p>
       </div>
 
       {/* フォーム */}

@@ -47,7 +47,7 @@ export default function Layout({ children }: Props) {
               className="px-4 py-1.5 text-sm bg-purple-50 text-purple-700 border border-purple-200 rounded-full font-bold hover:bg-purple-100 transition-colors shadow-sm cursor-pointer"
               title="ユーザーを切り替える"
             >
-              👤 {currentUser}
+              {currentUser === "こーき" ? "🐶" : "🐰"} {currentUser}
             </button>
           )}
         </div>

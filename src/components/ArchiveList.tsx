@@ -90,7 +90,7 @@ export default function ArchiveList() {
       <div className="flex flex-col">
         {themes.map((theme) => {
           const isKouki = theme.author === "こーき";
-          const emoji = isKouki ? "🧑" : "👩";
+          const emoji = isKouki ? "🐶" : "🐰";
           return (
             <div
               key={theme.id}

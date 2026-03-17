@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { TalkTheme } from "@/lib/types";
+import { useState } from "react";
 
 type Props = {
   theme: TalkTheme;
@@ -71,11 +71,10 @@ function PhotoCarousel({ photos }: { photos: string[] }) {
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`w-2 h-2 rounded-full transition-all duration-200 cursor-pointer ${
-              i === current
+            className={`w-2 h-2 rounded-full transition-all duration-200 cursor-pointer ${i === current
                 ? "bg-purple-400 scale-125"
                 : "bg-gray-300 hover:bg-gray-400"
-            }`}
+              }`}
           />
         ))}
       </div>
@@ -92,7 +91,7 @@ export default function ThemeCard({ theme, showDoneDate = false, hideMemoInitial
   const badgeBg = isKouki
     ? "bg-sky-200 text-sky-700"
     : "bg-pink-200 text-pink-700";
-  const emoji = isKouki ? "🧑" : "👩";
+  const emoji = isKouki ? "🐶" : "🐰";
 
   return (
     <div
