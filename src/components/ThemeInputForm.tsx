@@ -39,7 +39,7 @@ export default function ThemeInputForm({ author, initialTheme, onCancel, onSucce
         const compressed = await compressImage(file);
         setPhotos((prev) => [...prev, compressed]);
       } catch (err) {
-        console.error("画像の圧縮に失敗しました:", err);
+        console.error("画像の圧縮に失敗したよ:", err);
       }
     }
 
@@ -86,7 +86,7 @@ export default function ThemeInputForm({ author, initialTheme, onCancel, onSucce
         if (onSuccess) onSuccess();
       }, 1500);
     } catch (err) {
-      console.error("保存に失敗しました:", err);
+      console.error("保存に失敗したよ:", err);
     } finally {
       setIsSubmitting(false);
     }
@@ -202,7 +202,7 @@ export default function ThemeInputForm({ author, initialTheme, onCancel, onSucce
           : "opacity-0 translate-y-4 pointer-events-none"
           }`}
       >
-        ✅ {isEditing ? "更新しました！" : "メモしました！"}
+        ✅ {isEditing ? "更新したよ！" : "メモできたよ！"}
       </div>
     </div>
   );
