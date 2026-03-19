@@ -1,40 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# パートナーとの「あの話」、もう忘れないためのアプリ
 
-## Getting Started
+「あ、これ今度会ったときに話そう」
+毎日のふとした瞬間に思いつく、パートナーに聞いてほしいことや共有したいこと。
 
-First, run the development server:
+でも、いざ目の前にすると、どうしても忘れてしまう。
+せっかくたくさん話したいことがあったのに、結局思い出せないままデートが終わってしまう悔しさがありました。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+「だったら、パッと思いついたときにすぐメモできるアプリを作ろう」
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+そんな個人的な悔しさから生まれたのがこのアプリです。
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 普通のメモやToDoリストじゃダメなの？
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+よくある質問です。もちろん、スマホに標準で入っているメモ帳や、LINEの一人グループ、ToDoリストを使えば要件は満たせます。
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+でも、私たちが欲しいのは「業務のタスク消化」ではなく、「楽しく会話をするためのきっかけ」でした。
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+だから、ただのリストではなく**「ガチャガチャ」**という遊び心を加えました。
+お互いの「話したいこと（トークテーマ）」をこのアプリに一元管理しておいて、会ったときにガチャを回す。
 
-## Learn More
+コロンと出てきたテーマを見て、
+「あ、こんな話入れてたわ！」
+「あ、あなたのターンね！」
+と、ランダムにトークが展開されていく。その体験自体を楽しみたいと思ったのです。
 
-To learn more about Next.js, take a look at the following resources:
+## 会話が思い出として貯まっていく
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+ただ消費して終わりではありません。
+話した内容は過去のアーカイブとして残るようにしています。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+「あの時こんな話で盛り上がったな」
+「こういうことに興味があったんだな」
 
-## Deploy on Vercel
+二人がどんな会話をしてきたのか、一つのアプリで振り返ることができるのも面白いポイントです。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ただの「忘備録」ではなく、パートナーとの時間を少しだけ特別にする。
+そんな思いを込めて作っています。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## 利用技術（Tech Stack）
+
+[![My Skills](https://skillicons.dev/icons?i=nextjs,react,typescript,tailwind,supabase)](https://skillicons.dev)
+
+---
+
+※ 本アプリは個人的な利用を目的として開発されたものであり、一般ユーザー向けの頒布や公開は行っていません。
+データの管理やリアルタイム同期などは、Supabaseと連携して行っています。
