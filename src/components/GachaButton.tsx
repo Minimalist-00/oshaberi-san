@@ -12,6 +12,7 @@ export default function GachaButton() {
   const [pendingThemes, setPendingThemes] = useState<TalkTheme[]>([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isManualMode, setIsManualMode] = useState(false);
+  const [manualUser, setManualUser] = useState<"こーき" | "みずき" | null>(null);
   const [confirmingTheme, setConfirmingTheme] = useState<TalkTheme | null>(null);
 
   const refreshCount = useCallback(async () => {
@@ -54,6 +55,7 @@ export default function GachaButton() {
     setDrawnTheme(theme);
     setState("result");
     setIsManualMode(false);
+    setManualUser(null);
     setConfirmingTheme(null);
     setPendingCount((prev) => (prev !== null ? prev - 1 : null));
   };
@@ -125,34 +127,69 @@ export default function GachaButton() {
       {state === "idle" && isManualMode && (
         <div className="flex flex-col w-full animate-in fade-in slide-in-from-bottom-4 duration-300">
           <div className="flex items-center justify-between mb-4 px-1">
-            <h3 className="text-purple-500 font-bold">どの話にする？🤔</h3>
+            <h3 className="text-purple-500 font-bold">
+              {manualUser === null ? "どっちのテーマを見る？👀" : `${manualUser === "こーき" ? "🐶" : "🐰"} ${manualUser}のテーマ`}
+            </h3>
             <button
-              onClick={() => setIsManualMode(false)}
+              onClick={() => {
+                if (manualUser !== null) {
+                  setManualUser(null);
+                } else {
+                  setIsManualMode(false);
+                }
+              }}
               className="text-xs text-gray-400 hover:text-gray-600 font-bold"
             >
-              キャンセル
+              {manualUser !== null ? "戻る" : "キャンセル"}
             </button>
           </div>
-          <div className="flex flex-col bg-white/50 rounded-2xl overflow-hidden border border-purple-100">
-            {pendingThemes.map((theme) => {
-              const isKouki = theme.author === "こーき";
-              const emoji = isKouki ? "🐶" : "🐰";
-              return (
-                <button
-                  key={theme.id}
-                  onClick={() => setConfirmingTheme(theme)}
-                  className="flex flex-col items-start gap-1 p-4 border-b border-purple-50 last:border-none hover:bg-white transition-colors text-left group"
-                >
-                  <p className="text-gray-800 font-bold text-sm leading-snug group-hover:text-purple-600 transition-colors">
-                    {theme.text}
-                  </p>
-                  <span className="text-[10px] text-gray-400 font-bold">
-                    {emoji} {theme.author}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+          
+          {manualUser === null ? (
+            <div className="flex gap-4 w-full">
+              <button
+                onClick={() => setManualUser("こーき")}
+                className="flex-1 py-8 rounded-3xl bg-gradient-to-br from-blue-100 to-cyan-100 border-2 border-blue-200 flex flex-col items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+              >
+                <span className="text-4xl">🐶</span>
+                <span className="font-black text-blue-600">こーき</span>
+              </button>
+              <button
+                onClick={() => setManualUser("みずき")}
+                className="flex-1 py-8 rounded-3xl bg-gradient-to-br from-pink-100 to-rose-100 border-2 border-pink-200 flex flex-col items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+              >
+                <span className="text-4xl">🐰</span>
+                <span className="font-black text-pink-600">みずき</span>
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col bg-white/50 rounded-2xl overflow-hidden border border-purple-100 max-h-[40vh] overflow-y-auto w-full">
+              {pendingThemes.filter((theme) => theme.author === manualUser).length === 0 ? (
+                <div className="p-8 text-center text-gray-400 font-bold text-sm">
+                  テーマがありません🥲
+                </div>
+              ) : (
+                pendingThemes
+                  .filter((theme) => theme.author === manualUser)
+                  .map((theme) => {
+                    const emoji = theme.author === "こーき" ? "🐶" : "🐰";
+                    return (
+                      <button
+                        key={theme.id}
+                        onClick={() => setConfirmingTheme(theme)}
+                        className="flex flex-col items-start gap-1 p-4 border-b border-purple-50 last:border-none hover:bg-white transition-colors text-left group w-full"
+                      >
+                        <p className="text-gray-800 font-bold text-sm leading-snug group-hover:text-purple-600 transition-colors">
+                          {theme.text}
+                        </p>
+                        <span className="text-[10px] text-gray-400 font-bold">
+                          {emoji} {theme.author}
+                        </span>
+                      </button>
+                    );
+                  })
+              )}
+            </div>
+          )}
         </div>
       )}
 
