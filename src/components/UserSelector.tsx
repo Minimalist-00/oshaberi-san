@@ -1,4 +1,5 @@
 import { Author } from "@/lib/types";
+import { USER1_NAME, USER2_NAME } from "@/lib/constants";
 import { useRouter } from "next/router";
 
 export default function UserSelector() {
@@ -12,18 +13,18 @@ export default function UserSelector() {
   return (
     <div className="flex flex-col items-center gap-5 w-full max-w-sm mx-auto">
       <button
-        onClick={() => selectUser("こーき")}
+        onClick={() => selectUser(USER1_NAME)}
         className="group relative w-full py-5 rounded-3xl bg-gradient-to-r from-sky-300 to-blue-400 text-white text-xl font-black shadow-lg shadow-sky-300/40 hover:shadow-xl hover:shadow-sky-300/50 hover:scale-[1.04] active:scale-[0.97] transition-all duration-200 cursor-pointer overflow-hidden"
       >
         <span className="absolute inset-0 bg-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-3xl" />
-        <span className="relative z-10">🐶 こーき</span>
+        <span className="relative z-10">🐶 {USER1_NAME}</span>
       </button>
       <button
-        onClick={() => selectUser("みずき")}
+        onClick={() => selectUser(USER2_NAME)}
         className="group relative w-full py-5 rounded-3xl bg-gradient-to-r from-pink-300 to-rose-400 text-white text-xl font-black shadow-lg shadow-pink-300/40 hover:shadow-xl hover:shadow-pink-300/50 hover:scale-[1.04] active:scale-[0.97] transition-all duration-200 cursor-pointer overflow-hidden"
       >
         <span className="absolute inset-0 bg-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-3xl" />
-        <span className="relative z-10">🐰 みずき</span>
+        <span className="relative z-10">🐰 {USER2_NAME}</span>
       </button>
     </div>
   );

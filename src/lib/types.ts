@@ -1,4 +1,4 @@
-export type Author = "こーき" | "みずき";
+export type Author = string;
 
 export type TalkTheme = {
   id: string;

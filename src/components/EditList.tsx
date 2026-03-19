@@ -1,5 +1,6 @@
 import { getPendingThemesByAuthor } from "@/lib/storage";
 import { Author, TalkTheme } from "@/lib/types";
+import { USER1_NAME } from "@/lib/constants";
 import { useEffect, useState } from "react";
 
 function formatDate(iso: string): string {
@@ -49,8 +50,8 @@ export default function EditList({ author, onSelect }: Props) {
     );
   }
 
-  const isKouki = author === "こーき";
-  const emoji = isKouki ? "🐶" : "🐰";
+  const isUser1 = author === USER1_NAME;
+  const emoji = isUser1 ? "🐶" : "🐰";
 
   return (
     <div className="flex flex-col w-full">

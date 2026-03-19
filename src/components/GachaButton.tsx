@@ -1,6 +1,7 @@
 import { getPendingThemes, markAsDone } from "@/lib/storage";
 import { TalkTheme } from "@/lib/types";
 import { useCallback, useState } from "react";
+import { USER1_NAME, USER2_NAME } from "@/lib/constants";
 import ThemeCard from "./ThemeCard";
 
 type GachaState = "idle" | "spinning" | "result";
@@ -12,7 +13,7 @@ export default function GachaButton() {
   const [pendingThemes, setPendingThemes] = useState<TalkTheme[]>([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isManualMode, setIsManualMode] = useState(false);
-  const [manualUser, setManualUser] = useState<"こーき" | "みずき" | null>(null);
+  const [manualUser, setManualUser] = useState<string | null>(null);
   const [confirmingTheme, setConfirmingTheme] = useState<TalkTheme | null>(null);
 
   const refreshCount = useCallback(async () => {
@@ -128,7 +129,7 @@ export default function GachaButton() {
         <div className="flex flex-col w-full animate-in fade-in slide-in-from-bottom-4 duration-300">
           <div className="flex items-center justify-between mb-4 px-1">
             <h3 className="text-purple-500 font-bold">
-              {manualUser === null ? "どっちのテーマを見る？👀" : `${manualUser === "こーき" ? "🐶" : "🐰"} ${manualUser}のテーマ`}
+              {manualUser === null ? "どっちのテーマを見る？👀" : `${manualUser === USER1_NAME ? "🐶" : "🐰"} ${manualUser}のテーマ`}
             </h3>
             <button
               onClick={() => {
@@ -147,18 +148,18 @@ export default function GachaButton() {
           {manualUser === null ? (
             <div className="flex gap-4 w-full">
               <button
-                onClick={() => setManualUser("こーき")}
+                onClick={() => setManualUser(USER1_NAME)}
                 className="flex-1 py-8 rounded-3xl bg-gradient-to-br from-blue-100 to-cyan-100 border-2 border-blue-200 flex flex-col items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
               >
                 <span className="text-4xl">🐶</span>
-                <span className="font-black text-blue-600">こーき</span>
+                <span className="font-black text-blue-600">{USER1_NAME}</span>
               </button>
               <button
-                onClick={() => setManualUser("みずき")}
+                onClick={() => setManualUser(USER2_NAME)}
                 className="flex-1 py-8 rounded-3xl bg-gradient-to-br from-pink-100 to-rose-100 border-2 border-pink-200 flex flex-col items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
               >
                 <span className="text-4xl">🐰</span>
-                <span className="font-black text-pink-600">みずき</span>
+                <span className="font-black text-pink-600">{USER2_NAME}</span>
               </button>
             </div>
           ) : (
@@ -171,7 +172,7 @@ export default function GachaButton() {
                 pendingThemes
                   .filter((theme) => theme.author === manualUser)
                   .map((theme) => {
-                    const emoji = theme.author === "こーき" ? "🐶" : "🐰";
+                    const emoji = theme.author === USER1_NAME ? "🐶" : "🐰";
                     return (
                       <button
                         key={theme.id}

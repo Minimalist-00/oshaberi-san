@@ -1,6 +1,7 @@
 import { getDoneThemes, restoreTheme } from "@/lib/storage";
 import { TalkTheme } from "@/lib/types";
 import { useEffect, useState } from "react";
+import { USER1_NAME } from "@/lib/constants";
 import ThemeCard from "./ThemeCard";
 
 function formatDate(iso: string): string {
@@ -89,8 +90,8 @@ export default function ArchiveList() {
 
       <div className="flex flex-col">
         {themes.map((theme) => {
-          const isKouki = theme.author === "こーき";
-          const emoji = isKouki ? "🐶" : "🐰";
+          const isUser1 = theme.author === USER1_NAME;
+          const emoji = isUser1 ? "🐶" : "🐰";
           return (
             <div
               key={theme.id}

@@ -1,5 +1,6 @@
 import { TalkTheme } from "@/lib/types";
 import { useState } from "react";
+import { USER1_NAME } from "@/lib/constants";
 
 type Props = {
   theme: TalkTheme;
@@ -84,14 +85,14 @@ function PhotoCarousel({ photos }: { photos: string[] }) {
 
 export default function ThemeCard({ theme, showDoneDate = false, hideMemoInitial = false }: Props) {
   const [isMemoVisible, setIsMemoVisible] = useState(!hideMemoInitial);
-  const isKouki = theme.author === "こーき";
-  const cardBg = isKouki
+  const isUser1 = theme.author === USER1_NAME;
+  const cardBg = isUser1
     ? "bg-sky-50 border-sky-200"
     : "bg-pink-50 border-pink-200";
-  const badgeBg = isKouki
+  const badgeBg = isUser1
     ? "bg-sky-200 text-sky-700"
     : "bg-pink-200 text-pink-700";
-  const emoji = isKouki ? "🐶" : "🐰";
+  const emoji = isUser1 ? "🐶" : "🐰";
 
   const renderTextWithLinks = (text: string) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;

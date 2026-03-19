@@ -1,5 +1,6 @@
 import ThemeInputForm from "@/components/ThemeInputForm";
 import { Author } from "@/lib/types";
+import { USER1_NAME } from "@/lib/constants";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -19,7 +20,7 @@ export default function InputPage() {
 
   if (!author) return null;
 
-  const isKouki = author === "こーき";
+  const isUser1 = author === USER1_NAME;
 
   return (
     <div className="flex flex-col gap-8">

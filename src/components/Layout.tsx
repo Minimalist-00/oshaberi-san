@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect, useState } from "react";
+import { USER1_NAME } from "@/lib/constants";
 
 type Props = {
   children: ReactNode;
@@ -47,7 +48,7 @@ export default function Layout({ children }: Props) {
               className="px-4 py-1.5 text-sm bg-purple-50 text-purple-700 border border-purple-200 rounded-full font-bold hover:bg-purple-100 transition-colors shadow-sm cursor-pointer"
               title="ユーザーを切り替える"
             >
-              {currentUser === "こーき" ? "🐶" : "🐰"} {currentUser}
+              {currentUser === USER1_NAME ? "🐶" : "🐰"} {currentUser}
             </button>
           )}
         </div>
